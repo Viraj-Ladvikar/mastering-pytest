@@ -36,7 +36,6 @@ class TestAssertion:
         assert name == "Viraj"
 
     ## Boolean Assertion
-
     def test_boolean(self):
         is_login = True
         assert is_login == True
