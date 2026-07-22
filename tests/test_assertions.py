@@ -1,153 +1,214 @@
 """
+=========================================================
+PyTest Assertions
+=========================================================
+
 Think of an assertion as a checkpoint.
+
 Example:
+--------
 You log in to an application.
-After clicking Login, what do you verify?
-You verify:
-Dashboard is displayed
-User name is displayed
-URL changed
 
-Those verifications are assertions.
+After clicking the Login button, what do you verify?
 
+You verify that:
+- The Dashboard page is displayed.
+- The logged-in user's name is displayed.
+- The URL changes to the Dashboard URL.
 
+These verifications are called assertions.
 
-Assertion: A statement that verifies whether the expected result matches the actual result.
-Purpose: To validate application behavior and determine whether a test passes or fails.
-assert vs print(): assert validates and can fail a test; print() only displays information.
-Failed assertion: Raises AssertionError, stops the current test, and marks it as failed.
-Multiple assertions: Yes, but execution stops at the first failed assertion.
-Assertion introspection: PyTest automatically displays detailed expected vs. actual values when an assertion fails.
-Custom assertion messages: Used to provide clearer, domain-specific information in failure reports.
+---------------------------------------------------------
+Important Interview Points
+---------------------------------------------------------
 
+• Assertion
+  A statement that verifies whether the expected result
+  matches the actual result.
+
+• Purpose
+  To validate application behavior and determine whether
+  a test passes or fails.
+
+• assert vs print()
+  - assert validates the result and can fail the test.
+  - print() only displays information for debugging.
+
+• Failed Assertion
+  - Raises an AssertionError.
+  - Stops the current test execution.
+  - Marks the test as Failed.
+
+• Multiple Assertions
+  Yes, one test can contain multiple assertions.
+  Execution stops at the first failed assertion.
+
+• Assertion Introspection
+  PyTest automatically displays the expected and actual
+  values when an assertion fails, making debugging easier.
+
+• Custom Assertion Messages
+  Used to provide meaningful, business-specific failure
+  messages in test reports.
 """
 
-## First Assertion
-class TestAssertion:
 
-    def test_addition(slef):
+class TestAssertion:
+    """Examples of different types of PyTest assertions."""
+
+    # =====================================================
+    # Equality Assertion
+    # =====================================================
+
+    def test_addition(self):
         result = 2 + 2
         assert result == 4
-
-    ## Equality Assertion
 
     def test_name(self):
         name = "Viraj"
         assert name == "Viraj"
 
-    ## Boolean Assertion
-    def test_boolean(self):
-        is_login = True
-        assert is_login == True
+    # =====================================================
+    # Boolean Assertion
+    # =====================================================
 
-    ## Not equal
+    def test_boolean(self):
+        is_logged_in = True
+        assert is_logged_in is True
+
+    # =====================================================
+    # Not Equal Assertion
+    # =====================================================
 
     def test_not_equal(self):
-        age =18
+        age = 18
         assert age != 30
 
-    ## Greater Than
+    # =====================================================
+    # Greater Than Assertion
+    # =====================================================
 
     def test_salary(self):
         salary = 20000
-
         assert salary > 10000
 
-    ## Less Than
+    # =====================================================
+    # Less Than Assertion
+    # =====================================================
 
     def test_marks(self):
         marks = 60
-
         assert marks < 62
 
-    ## Membership Assertion
+    # =====================================================
+    # Membership Assertion
+    # =====================================================
+
     def test_list(self):
         fruits = ["Apple", "Banana", "Orange"]
-
         assert "Banana" in fruits
 
-    ## Not In
+    # =====================================================
+    # Not In Assertion
+    # =====================================================
 
     def test_not_in(self):
         fruits = ["Apple", "Banana", "Orange"]
-
         assert "Kiwi" not in fruits
 
-    ## String assertion
+    # =====================================================
+    # String Assertion
+    # =====================================================
+
     def test_string(self):
         text = "Hello"
         assert text == "Hello"
 
-    ## None Assertion
+    # =====================================================
+    # None Assertion
+    # =====================================================
+
     def test_none(self):
         value = None
-
         assert value is None
 
-    ## Identity Assertion
+    # =====================================================
+    # Identity Assertion
+    # =====================================================
 
     def test_identity(self):
-        value = "Viraj"
-        assert value == "Viraj"
+        name = "Viraj"
+        another_name = name
 
-    ## Negative Tes
+        assert another_name is name
+
+    # =====================================================
+    # Negative Test (Expected to Fail)
+    # =====================================================
 
     def test_age(self):
         age = 18
         assert age == 30
 
-    ## Assertions with Messages
+    # =====================================================
+    # Assertion with Custom Message
+    # =====================================================
 
-    def test_messsage(self):
+    def test_message(self):
         age = 18
-        assert age == 30,"Age Should be 18"
+        assert age == 30, "Age should be 30."
 
-    ## API response
-    def test_api(self):
+    # =====================================================
+    # API Response Assertions
+    # =====================================================
 
-        resp = {
-            "status":"success",
-            "code":200,
+    def test_api_response(self):
+        response = {
+            "status": "success",
+            "code": 200,
         }
 
-        assert  resp["code"] == 200
-        assert resp["status"] == "success"
+        assert response["code"] == 200
+        assert response["status"] == "success"
 
-# ===========================================================================================
-                # Assingment #
-#===========================================================================================
 
-    ## Even Number
+# =========================================================
+# Assignment
+# =========================================================
 
-    def test_even(self):
-        num = 8
+class TestAssertionAssignment:
+    """Practice assertion exercises."""
 
-        assert num % 2 == 0
+    # Check whether a number is even.
 
-    ## String Strat with "Py"
+    def test_even_number(self):
+        number = 8
+        assert number % 2 == 0
 
-    def test_start_with(self):
-        text ="Pytest"
+    # Check whether a string starts with "Py".
 
+    def test_string_starts_with(self):
+        text = "Pytest"
         assert text.startswith("Py")
 
-    ## Check if the framework exists in the sentence
+    # Check whether a sentence contains "framework".
 
-    def test_contain(self):
+    def test_contains_word(self):
         sentence = "pytest is the testing framework"
         assert "framework" in sentence
 
-    ## Check if a list contains 100.
+    # Check whether a list contains 100.
 
-    def test_lst_contain(self):
-        lst =[1,2,33,445,32,100]
+    def test_list_contains_value(self):
+        numbers = [1, 2, 33, 445, 32, 100]
+        assert 100 in numbers
 
-        assert 100 in lst
+    # Check whether a dictionary contains the key "username".
 
-    ## Check if a dictionary contains the key "username"
+    def test_dictionary_key(self):
+        user = {
+            "username": "viraj",
+            "password": "Akola@123"
+        }
 
-    def test_dict(self):
-        d ={"username":"viraj","password":"Akola@123"}
-        assert "username" in d
-
-
+        assert "username" in user
