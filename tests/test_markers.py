@@ -5,52 +5,52 @@ PyTest Markers
 
 What are Markers?
 -----------------
-Markers are labels that allow you to group and selectively
-run specific tests.
+Markers are labels used to group tests so that specific
+sets of tests can be executed independently.
 
+Example:
+--------
 Imagine your project contains:
 
 • 500 Smoke tests
 • 2,000 Regression tests
 • 100 Sanity tests
 
-Running all 2,600 tests every time would be slow.
-
-Instead, you can run only the tests you need by assigning
-markers to them.
+Running all 2,600 tests after every code change is time-
+consuming. Instead, markers allow you to execute only the
+required test suite.
 
 
 Interview Questions
-===================
+=========================================================
 
-1. What are markers in PyTest?
-------------------------------
-Markers are tags used to categorize tests so that
-specific groups of tests can be executed independently.
+1. What are PyTest markers?
+---------------------------
+Markers are labels (tags) used to categorize tests and
+selectively execute them.
 
-Examples:
-- Smoke
-- Regression
-- Sanity
-- API
-- Database
-- UI
+Common markers include:
+• smoke
+• regression
+• sanity
+• api
+• ui
+• database
+
+You can also create your own custom markers.
 
 
 2. Why do we use markers?
 -------------------------
-Markers help us:
-
-• Run only the required tests.
-• Reduce execution time.
-• Organize large test suites.
-• Support CI/CD pipelines.
-• Execute feature-specific tests.
+• Group related tests
+• Execute only the required test suite
+• Reduce execution time
+• Organize large automation suites
+• Support CI/CD pipelines
 
 
 3. How do you create a marker?
 ------------------------------
-Use the @pytest.mark decorator.
 
 Example:
 
@@ -86,11 +86,11 @@ Run Sanity tests:
 
     pytest -m sanity
 
-Run multiple markers:
+Run Smoke OR Regression:
 
     pytest -m "smoke or regression"
 
-Run tests having both markers:
+Run tests having BOTH markers:
 
     pytest -m "smoke and regression"
 
@@ -99,23 +99,44 @@ Exclude Smoke tests:
     pytest -m "not smoke"
 
 
-6. Where have you used markers in real projects?
-------------------------------------------------
+6. Why do we register markers in pytest.ini?
+--------------------------------------------
+To:
+• Avoid PytestUnknownMarkWarning
+• Document all custom markers
+• Improve maintainability
+
+
+Example:
+
+[pytest]
+markers =
+    smoke: Smoke test suite
+    regression: Regression test suite
+    sanity: Sanity test suite
+
+
+7. Where have you used markers in a real project?
+-------------------------------------------------
 Interview Answer:
 
-"In my automation framework, I used Smoke markers for
-critical business flows such as login, checkout, and
-payment. Regression markers were applied to the complete
-test suite, while Sanity markers were used to verify
-major functionality after each deployment.
+"In my automation framework, I categorized tests using
+Smoke, Regression, and Sanity markers.
 
-During CI/CD, the Smoke suite was executed after every
-build, and the full Regression suite was scheduled to
-run overnight."
+• Smoke tests covered critical business flows such as
+  Login, Checkout, and Payment. They ran after every build.
+
+• Regression tests covered the complete application and
+  were executed before releases or overnight.
+
+• Sanity tests verified major functionalities after new
+  deployments or hotfixes.
+
+Using markers reduced execution time and allowed the CI/CD
+pipeline to execute only the required test suite."
 """
 
 import pytest
-
 
 # =====================================================
 # Function-Level Markers
@@ -151,7 +172,7 @@ def test_login():
 
 
 # =====================================================
-# Class-Level Tests with Markers
+# Class-Level Markers
 # =====================================================
 
 class TestLogin:
